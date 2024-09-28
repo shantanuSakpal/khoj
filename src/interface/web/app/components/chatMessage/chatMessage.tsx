@@ -25,6 +25,7 @@ import {
     Pause,
     Palette,
     ClipboardText,
+    ShareFat,
 } from "@phosphor-icons/react";
 
 import DOMPurify from "dompurify";
@@ -197,6 +198,25 @@ function FeedbackButtons({ uquery, kquery }: { uquery: string; kquery: string })
                 )}
             </button>
         </div>
+    );
+}
+
+const shareMessage = async () => {
+    try {
+        console.log("share message");
+    } catch (error) {
+        console.error("Error sharing message:", error);
+    }
+};
+
+function ShareButton({ message }: { message: string }) {
+    return (
+        <button title="Share" onClick={shareMessage}>
+            <ShareFat
+                alt="Share message"
+                className="hsl(var(--muted-foreground)) hover:text-green-500"
+            />
+        </button>
     );
 }
 
@@ -634,6 +654,9 @@ export default function ChatMessage(props: ChatMessageProps) {
                                         kquery={props.chatMessage.message}
                                     />
                                 ))}
+                            {props.chatMessage.by === "khoj" && (
+                                <ShareButton message={props.chatMessage.message} />
+                            )}
                         </div>
                     </>
                 )}
